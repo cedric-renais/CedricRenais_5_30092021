@@ -6,7 +6,7 @@ const localStorageProducts = JSON.parse(
 );
 
 //-------------------------------------------------------------------------------------------------------------//
-// creation of a function to display the products found in the localStorage                                    //
+// declaration of a function to display the products found in the localStorage                                 //
 // declaration of variables for each product element                                                           //
 // call the product ID in the API and transform data into json format                                          //
 // parses the specified text as HTML and inserts the resulting nodes into the DOM tree at a specified position //
@@ -58,4 +58,43 @@ function displayCart() {
       });
   }
 }
+
+//-------------------------------------------------------------------------------------------------------------//
+// declaration of a function to calculate and display the total price and total number of products in the cart //
+// declaration of variables for each product element                                                           //
+// call the product ID in the API and transform data into json format                                          //
+// calculate and display the total price of products in the cart                                               //
+// calculate and display the total quantity of products in the cart                                            //
+//-------------------------------------------------------------------------------------------------------------//
+
+function displayTotalCart() {
+  for (const product of localStorageProducts) {
+    let productQuantity = product.quantity;
+    const productID = product.id;
+    fetch(`http://localhost:3000/api/products/${productID}`)
+      .then((response) => response.json())
+      .then((product) => {
+        const productPrice = product.price;
+        const totalPrice = document.getElementById('totalPrice');
+        let totalPriceCart = 0;
+        localStorageProducts.forEach(() => {
+          totalPriceCart = totalPriceCart + productPrice * productQuantity;
+          console.log(totalPriceCart);
+          totalPrice.innerHTML = totalPriceCart;
+          let totalQuantityCart = [];
+          localStorageProducts.forEach(() => {
+            totalQuantityCart = productQuantity++;
+          });
+          const totalQuantity = document.getElementById('totalQuantity');
+          totalQuantity.innerHTML = totalQuantityCart;
+        });
+      });
+  }
+}
+
+//----------------//
+// call functions //
+//----------------//
+
 displayCart();
+displayTotalCart();
