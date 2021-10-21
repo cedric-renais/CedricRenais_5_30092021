@@ -82,4 +82,22 @@ if (localStorageProducts) {
   }
   const totalArticles = document.getElementById('totalQuantity');
   totalArticles.textContent = `${total} `;
+
+  //---------------------------------------------------------------//
+  // removal of products from the cart                             //
+  // add an event to the click on the element                      //
+  // clears the contents of localStorage                           //
+  // alert that indicates that the requested action has been taken //
+  // clicking on OK returns to the home page                       //
+  //---------------------------------------------------------------//
+
+  const deleteAll = document.getElementById('cart__delete');
+  deleteAll.addEventListener('click', (event) => {
+    event.preventDefault();
+    localStorage.clear();
+    alert(`
+        Le panier a bien été supprimé,
+        retour à la page d'accueil !`);
+    location.href = 'index.html';
+  });
 }
