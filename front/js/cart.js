@@ -5,7 +5,7 @@
 const localStorageProducts = JSON.parse(
   localStorage.getItem('localStorageProducts')
 );
-console.log(localStorageProducts);
+console.table(localStorageProducts);
 
 //-------------------------------------------------------------------------------------------------------------//
 // if there is data in the localStorage                                                                        //
@@ -41,4 +41,42 @@ if (localStorageProducts) {
       .getElementById('cart__items')
       .insertAdjacentHTML('beforeend', productCart);
   }
+
+  //--------------------------------------------------------------------------------------//
+  // declaration of the variable to be able to put the prices present in the localStorage //
+  // fetch the prices in the localStorage                                                 //
+  // put the localStorage prices in the variable                                          //
+  // add up the prices in the variable                                                    //
+  // display the total amount in the DOM                                                  //
+  //--------------------------------------------------------------------------------------//
+
+  const priceCalculation = [];
+  for (index = 0; index < localStorageProducts.length; index++) {
+    const cartAmout = localStorageProducts[index].price;
+    priceCalculation.push(cartAmout);
+    const reduce = (accumulator, currentValue) => accumulator + currentValue;
+    total = priceCalculation.reduce(reduce);
+    console.log(total);
+  }
+  const totalPrice = document.getElementById('totalPrice');
+  totalPrice.textContent = `${total} `;
+
+  //--------------------------------------------------------------------------------------------------//
+  // declaration of the variable to be able to put the number of articles present in the localStorage //
+  // fetch the prices in the localStorage                                                             //
+  // put the localStorage prices in the variable                                                      //
+  // add up the prices in the variable                                                                //
+  // display the total amount in the DOM                                                              //
+  //--------------------------------------------------------------------------------------------------//
+
+  const articleCalculation = [];
+  for (index = 0; index < localStorageProducts.length; index++) {
+    const numberOfArticles = localStorageProducts[index].quantity;
+    articleCalculation.push(numberOfArticles);
+    const reduce = (accumulator, currentValue) => accumulator + currentValue;
+    total = articleCalculation.reduce(reduce);
+    console.log(total);
+  }
+  const totalArticles = document.getElementById('totalQuantity');
+  totalArticles.textContent = `${total} `;
 }
