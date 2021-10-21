@@ -6,7 +6,7 @@
 fetch('http://localhost:3000/api/products')
   .then((response) => response.json())
   .then((data) => {
-    addProduct(data);
+    addProducts(data);
   })
   .catch((error) => {
     alert('Notre serveur de répond pas, veuillez revenir ultérieurement.');
@@ -18,7 +18,7 @@ fetch('http://localhost:3000/api/products')
 // parses the specified text as HTML and inserts the resulting nodes into the DOM tree at a specified position //
 // avoids the extra step of serialization, making it much faster than direct innerHTML manipulation            //
 //-------------------------------------------------------------------------------------------------------------//
-function addProduct(data) {
+function addProducts(data) {
   for (product of data) {
     const thumbnails = `
           <a href="./product.html?_id=${product._id}">

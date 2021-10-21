@@ -14,7 +14,8 @@ const productID = newID.get('_id');
 fetch(`http://localhost:3000/api/products/${productID}`)
   .then((response) => response.json())
   .then((data) => {
-    addProduct(data);
+    addProducts(data);
+    console.log(data);
   })
   .catch((error) => {
     alert('Notre serveur de répond pas, veuillez revenir ultérieurement.');
@@ -27,7 +28,7 @@ fetch(`http://localhost:3000/api/products/${productID}`)
 // for loop of which look in the array for the color options then display it                                   //
 //-------------------------------------------------------------------------------------------------------------//
 
-function addProduct(product) {
+function addProducts(product) {
   const productImg = document.querySelector(
     'body > main > div > section > article > div.item__img'
   );
