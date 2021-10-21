@@ -16,6 +16,8 @@ console.table(localStorageProducts);
 
 if (localStorageProducts) {
   for (index = 0; index < localStorageProducts.length; index++) {
+    const productTotalPrice =
+      localStorageProducts[index].price * localStorageProducts[index].quantity;
     const productCart = `<article class="cart__item" data-id="${localStorageProducts[index].id}">
     <div class="cart__item__img">
     <img src="${localStorageProducts[index].image}" alt="${localStorageProducts[index].alt}">
@@ -24,7 +26,7 @@ if (localStorageProducts) {
     <div class="cart__item__content__titlePrice">
     <h2>${localStorageProducts[index].name}</h2>
     <p>${localStorageProducts[index].color}</p>
-    <p>${localStorageProducts[index].price} €</p>
+    <p>${productTotalPrice}€</p>
   </div>
   <div class="cart__item__content__settings">
     <div class="cart__item__content__settings__quantity">
@@ -52,7 +54,8 @@ if (localStorageProducts) {
 
   const priceCalculation = [];
   for (index = 0; index < localStorageProducts.length; index++) {
-    const cartAmout = localStorageProducts[index].price;
+    const cartAmout =
+      localStorageProducts[index].price * localStorageProducts[index].quantity;
     priceCalculation.push(cartAmout);
     const reduce = (accumulator, currentValue) => accumulator + currentValue;
     total = priceCalculation.reduce(reduce);
