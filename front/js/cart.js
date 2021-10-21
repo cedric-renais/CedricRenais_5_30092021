@@ -100,4 +100,33 @@ if (localStorageProducts) {
         retour à la page d'accueil !`);
     location.href = 'index.html';
   });
+
+  //---------------------------------------------------//
+  // creation of a function for the change of quantity //
+  // recovery of ID, quantity and color data           //
+  // if the cart already contains at least 1 article   //
+  // recovery of the new quantity                      //
+  // then update the localStorage (in progress)        //
+  //---------------------------------------------------//
+
+  function quantityChange() {
+    const itemQuantity = document.getElementsByClassName('itemQuantity');
+    itemQuantity.forEach((article) => {
+      const articleID = localStorageProducts[index].id;
+      article.dataset.id === articleID;
+      const articleColor = localStorageProducts[index].color;
+      const articleQuantity = localStorageProducts[index].quantity;
+      const findArticle = localStorageProducts.find(
+        (data) =>
+          data.articleID === articleID && data.articleColor === articleColor
+      );
+      if (findArticle) {
+        const newQuantity =
+          document.getElementsByClassName('itemQuantity').value;
+        parseInt(articleQuantity) + parseInt(findArticle.quantity);
+        findArticle.quantity = newQuantity;
+        // finish the codebase of the function here
+      }
+    });
+  }
 }
