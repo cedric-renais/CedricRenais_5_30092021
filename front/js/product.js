@@ -21,7 +21,7 @@ fetch(`http://localhost:3000/api/products/${productID}`)
   });
 
 //-------------------------------------------------------------------------------------------------------------//
-// creation of a function to display the article                                                               //
+// creation of a function to display the product                                                               //
 // declaration of variables to retrieve locations to display elements in the DOM                               //
 // display elements in the DOM                                                                                 //
 // for loop of which look in the array for the color options then display it                                   //
@@ -46,3 +46,59 @@ function addProduct(product) {
     );
   }
 }
+
+//-------------------------------------------------------------------------------------//
+// add an event when clicking on the addToCart ID                                      //
+// declaration of variables to retrieve locations in the DOM                           //
+// create an array containing the ID, the color option and the quantity of the product //
+// if the localStorage is not empty                                                    //
+// look for the product in the array                                                   //
+// if the product is not in the array then its value is -1                             //
+// if the product is in the array then add 1 to the quantity                           //
+// if localStorage is empty then create an array                                       //
+//-------------------------------------------------------------------------------------//
+
+document.getElementById('addToCart').addEventListener('click', (event) => {
+  event.defaultPrevented;
+  const productColor = document.getElementById('colors');
+  const productQuantity = document.getElementById('quantity');
+  const productArray = {
+    id: productID,
+    color: productColor.value,
+    quantity: productQuantity.value,
+  };
+  if (
+    localStorage.getItem('localStorageProducts') &&
+    localStorage.getItem('localStorageProducts').length > 0
+  ) {
+    const localStorageProducts = JSON.parse(
+      localStorage.getItem('localStorageProducts')
+    );
+    const product = localStorageProducts.findIndex(
+      (product) =>
+        product.id === productArray.id && product.color === productArray.color
+    );
+    if (product === -1) {
+      localStorageProducts.push(productArray);
+      localStorage.setItem(
+        'localStorageProducts',
+        JSON.stringify(localStorageProducts)
+      );
+    } else {
+      localStorageProducts[product].quantity =
+        parseInt(localStorageProducts[product].quantity) +
+        parseInt(productArray.quantity);
+      localStorage.setItem(
+        'localStorageProducts',
+        JSON.stringify(localStorageProducts)
+      );
+    }
+  } else {
+    localStorageProducts = [];
+    localStorageProducts.push(productArray);
+    localStorage.setItem(
+      'localStorageProducts',
+      JSON.stringify(localStorageProducts)
+    );
+  }
+});
