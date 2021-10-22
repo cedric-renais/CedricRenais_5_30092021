@@ -54,29 +54,22 @@ if (localStorageProducts) {
 
   // Not working yet ...
 
-  function quantityChange() {
-    const itemQuantity = document.querySelectorAll('.itemQuantity');
-    itemQuantity.forEach((article) => {
-      const articleID = localStorageProducts[index].id;
-      article.dataset.id === articleID;
-      const articleColor = localStorageProducts[index].color;
-      const articleQuantity = localStorageProducts[index].quantity;
-      const findArticle = localStorageProducts.find(
-        (data) =>
-          data.articleID === articleID && data.articleColor === articleColor
+  const inputSelect = document.getElementsByClassName('itemQuantity');
+  for (input of inputSelect) {
+    const productArticle = input.closest('article.cart__item');
+    const productQuantity = input.value;
+    const productID = productArticle.dataset.id;
+    input.addEventListener('change', (event) => {
+      const input = event.target.value;
+      newQuantity = localStorageProducts.quantity;
+      console.log(input);
+      localStorageProducts.push(localStorageProducts.quantity);
+      localStorage.setItem(
+        'localStorageProducts',
+        JSON.stringify(localStorageProducts)
       );
-      if (findArticle) {
-        const newQuantity =
-          document.getElementsByClassName('itemQuantity').value;
-        parseInt(articleQuantity) + parseInt(findArticle.quantity);
-        findArticle.quantity = newQuantity;
-        localStorageProducts.quantity.push(newQuantity);
-        localStorage.setItem(
-          'localStorageProducts',
-          JSON.stringify(localStorageProducts)
-        );
-      }
     });
+    console.log(input);
   }
 
   //---------------------------------------------------------//
