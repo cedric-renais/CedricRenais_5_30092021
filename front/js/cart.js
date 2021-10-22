@@ -49,11 +49,13 @@ if (localStorageProducts) {
   // recovery of ID, quantity and color data           //
   // if the cart already contains at least 1 article   //
   // recovery of the new quantity                      //
-  // then update the localStorage (in progress)        //
+  // then update the localStorage                      //
   //---------------------------------------------------//
 
+  // Not working yet ...
+
   function quantityChange() {
-    const itemQuantity = document.getElementsByClassName('itemQuantity');
+    const itemQuantity = document.querySelectorAll('.itemQuantity');
     itemQuantity.forEach((article) => {
       const articleID = localStorageProducts[index].id;
       article.dataset.id === articleID;
@@ -77,7 +79,28 @@ if (localStorageProducts) {
     });
   }
 
-  // code for deleting an item from the cart to do here
+  //---------------------------------------------------------//
+  // search for all deleteItem class in the DOM              //
+  // add a different eventListener for each deleteItem class //
+  // variable declaration containing id + color              //
+  // look in the localStorage for the id + color             //
+  // if id + color are equal then delete                     //
+  //---------------------------------------------------------//
+
+  // Not working yet ...
+
+  deleteItem = document.querySelectorAll('.deleteItem');
+  for (index = 0; index < deleteItem.length; index++) {
+    deleteItem[index].addEventListener('click', (event) => {
+      event.preventDefault();
+      const deleteID =
+        localStorageProducts[index].id + localStorageProducts[index].color;
+      console.log(deleteID);
+      localStorageProducts = localStorageProducts.filter(
+        (element) => element.id == deleteID
+      );
+    });
+  }
 
   //--------------------------------------------------------------------------------------//
   // declaration of the variable to be able to put the prices present in the localStorage //
@@ -97,7 +120,7 @@ if (localStorageProducts) {
     total = priceCalculation.reduce(reduce);
   }
   const totalPrice = document.getElementById('totalPrice');
-  totalPrice.textContent = `${total} `;
+  totalPrice.textContent = total;
 
   //--------------------------------------------------------------------------------------------------//
   // declaration of the variable to be able to put the number of articles present in the localStorage //
@@ -106,6 +129,8 @@ if (localStorageProducts) {
   // add up the prices in the variable                                                                //
   // display the total amount in the DOM                                                              //
   //--------------------------------------------------------------------------------------------------//
+
+  // Not working yet ...
 
   const articleCalculation = [];
   for (index = 0; index < localStorageProducts.length; index++) {
@@ -117,7 +142,7 @@ if (localStorageProducts) {
     console.log(total);
   }
   const totalArticles = document.getElementById('totalQuantity');
-  totalArticles.textContent = `${total} `; // bad result, the code must be reviewed
+  totalArticles.textContent = total;
 
   //---------------------------------------------------------------//
   // removal of products from the cart                             //
@@ -141,7 +166,12 @@ if (localStorageProducts) {
   // get the inputs from the DOM                                       //
   // array containing the data of the localStorage to send to the back //
   // array containing the data of the order form to send to the back   //
+  // if the values ​​of the form of are not correct                      //
+  // display error message                                             //
+  // otherwise send the order to the back in JSON format               //
   //-------------------------------------------------------------------//
+
+  // Not working yet ...
 
   const firstName = document.getElementById('firstName');
   const lastName = document.getElementById('lastName');
@@ -150,14 +180,11 @@ if (localStorageProducts) {
   const email = document.getElementById('email');
 
   const orderArray = [];
-  for (let index = 0; index < localStorageProducts.length; index++) {
+  for (index = 0; index < localStorageProducts.length; index++) {
     orderArray.push(localStorageProducts[index].id);
-    orderArray.push(localStorageProducts[index].name);
     orderArray.push(localStorageProducts[index].color);
     orderArray.push(localStorageProducts[index].quantity);
-    orderArray.push(localStorageProducts[index].price);
   }
-  console.log(orderArray);
 
   const formArray = {
     contact: {
@@ -169,11 +196,6 @@ if (localStorageProducts) {
     },
     order: [orderArray],
   };
-  console.log(formArray);
-
-  //-------//
-  // regex //
-  //-------//
 
   const regexfirstName = /^[a-zA-Z]+-[a-zA-Z]$/;
   const regexlastName = /^[a-zA-Z]+-[a-zA-Z]$/;
@@ -181,12 +203,6 @@ if (localStorageProducts) {
   const regexCity = /^[a-zA-Z]+-[a-zA-Z]$/;
   const regexEmail =
     /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/;
-
-  //----------------------------------------------//
-  // if the values ​​of the form of are not correct //
-  // displays error message                       //
-  // otherwise send the order to the back         //
-  //----------------------------------------------//
 
   if (
     !regexfirstName.test(firstName.value) ||
@@ -207,7 +223,7 @@ if (localStorageProducts) {
       const order = document.getElementById('order');
       order.addEventListener('click', (event) => {
         event.preventDefault();
-        location.href = 'index.html';
+        location.href = 'confirmation.html';
         fetch('http://localhost:3000/api/products/order', orderPost)
           .then((response) => response.json())
           .then((orderingInformation) => {
