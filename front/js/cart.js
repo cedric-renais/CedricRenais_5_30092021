@@ -5,7 +5,7 @@
 const localStorageProducts = JSON.parse(
   localStorage.getItem('localStorageProducts')
 );
-console.table(localStorageProducts);
+console.log(localStorageProducts);
 
 //-------------------------------------------------------------------------------------------------------------//
 // if there is data in the localStorage                                                                        //
@@ -34,7 +34,8 @@ if (localStorageProducts) {
       <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${localStorageProducts[index].quantity}">
     </div>
     <div class="cart__item__content__settings__delete">
-      <p class="deleteItem">Supprimer</p>
+    <p class="modifyItem">Modifier</p> 
+    <p class="deleteItem">Supprimer</p>
     </div>
   </div>
 </div>
@@ -45,32 +46,14 @@ if (localStorageProducts) {
   }
 
   //---------------------------------------------------//
-  // creation of a function for the change of quantity //
-  // recovery of ID, quantity and color data           //
-  // if the cart already contains at least 1 article   //
+  // get the input in the DOM                          //
+  // for the selected input                            //
+  // add an eventListener (change)                     //
   // recovery of the new quantity                      //
   // then update the localStorage                      //
   //---------------------------------------------------//
 
-  // Not working yet ...
-
-  const inputSelect = document.getElementsByClassName('itemQuantity');
-  for (input of inputSelect) {
-    const productArticle = input.closest('article.cart__item');
-    const productQuantity = input.value;
-    const productID = productArticle.dataset.id;
-    input.addEventListener('change', (event) => {
-      const input = event.target.value;
-      newQuantity = localStorageProducts.quantity;
-      console.log(input);
-      localStorageProducts.push(localStorageProducts.quantity);
-      localStorage.setItem(
-        'localStorageProducts',
-        JSON.stringify(localStorageProducts)
-      );
-    });
-    console.log(input);
-  }
+  // to do ...
 
   //---------------------------------------------------------//
   // search for all deleteItem class in the DOM              //
@@ -92,6 +75,7 @@ if (localStorageProducts) {
       localStorageProducts = localStorageProducts.filter(
         (element) => element.id == deleteID
       );
+      console.log(deleteID);
     });
   }
 
@@ -123,19 +107,16 @@ if (localStorageProducts) {
   // display the total amount in the DOM                                                              //
   //--------------------------------------------------------------------------------------------------//
 
-  // Not working yet ...
-
-  const articleCalculation = [];
-  for (index = 0; index < localStorageProducts.length; index++) {
-    const numberOfArticles = localStorageProducts[index].quantity;
-    articleCalculation.push(numberOfArticles);
-    const reduce = (previousValue, currentValue) =>
-      previousValue + currentValue;
-    total = articleCalculation.reduce(reduce);
-    console.log(total);
+  function totalArticles() {
+    let total = 0;
+    for (index in localStorageProducts) {
+      const quantity = parseInt(localStorageProducts[index].quantity, 10);
+      total += quantity;
+    }
+    return total;
   }
-  const totalArticles = document.getElementById('totalQuantity');
-  totalArticles.textContent = total;
+  const totalQuantity = document.getElementById('totalQuantity');
+  totalQuantity.textContent = totalArticles();
 
   //---------------------------------------------------------------//
   // removal of products from the cart                             //
@@ -189,7 +170,6 @@ if (localStorageProducts) {
     },
     order: [orderArray],
   };
-
   const regexfirstName = /^[a-zA-Z]+-[a-zA-Z]$/;
   const regexlastName = /^[a-zA-Z]+-[a-zA-Z]$/;
   const regexAddress = /^[a-zA-Z0-9\s,'-]$/;
@@ -211,7 +191,6 @@ if (localStorageProducts) {
       body: JSON.stringify(form),
       headers: { 'Content-Type': 'application/json' },
     };
-    console.log(orderPost);
     function order() {
       const order = document.getElementById('order');
       order.addEventListener('click', (event) => {
@@ -219,9 +198,7 @@ if (localStorageProducts) {
         location.href = 'confirmation.html';
         fetch('http://localhost:3000/api/products/order', orderPost)
           .then((response) => response.json())
-          .then((orderingInformation) => {
-            console.log(orderingInformation);
-          });
+          .then(() => {});
       });
     }
   }
