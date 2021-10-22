@@ -166,4 +166,15 @@ if (localStorageProducts) {
     order: [orderArray],
   };
   console.log(formArray);
+
+  //-------//
+  // regex //
+  //-------//
+
+  const regexfirstName = /^[a-zA-Z]+-[a-zA-Z]$/;
+  const regexlastName = /^[a-zA-Z]+-[a-zA-Z]$/;
+  const regexAddress = /^[a-zA-Z0-9\s,'-]$/;
+  const regexCity = /^[a-zA-Z]+-[a-zA-Z]$/;
+  const regexEmail =
+    /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/;
 }
