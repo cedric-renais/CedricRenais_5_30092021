@@ -68,7 +68,11 @@ if (localStorageProducts) {
           document.getElementsByClassName('itemQuantity').value;
         parseInt(articleQuantity) + parseInt(findArticle.quantity);
         findArticle.quantity = newQuantity;
-        // remains to make the modification in the localStorage
+        localStorageProducts.quantity.push(newQuantity);
+        localStorage.setItem(
+          'localStorageProducts',
+          JSON.stringify(localStorageProducts)
+        );
       }
     });
   }
@@ -177,4 +181,39 @@ if (localStorageProducts) {
   const regexCity = /^[a-zA-Z]+-[a-zA-Z]$/;
   const regexEmail =
     /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/;
+
+  //----------------------------------------------//
+  // if the values ​​of the form of are not correct //
+  // displays error message                       //
+  // otherwise send the order to the back         //
+  //----------------------------------------------//
+
+  if (
+    !regexfirstName.test(firstName.value) ||
+    !regexlastName.test(lastName.value) ||
+    !regexAddress.test(address.value) ||
+    !regexCity.test(city.value) ||
+    !regexEmail.test(email.value)
+  ) {
+    //alert('Le formulaire de commande comporte des erreurs, veuillez vérifier.');
+  } else {
+    const orderPost = {
+      method: 'POST',
+      body: JSON.stringify(form),
+      headers: { 'Content-Type': 'application/json' },
+    };
+    console.log(orderPost);
+    function order() {
+      const order = document.getElementById('order');
+      order.addEventListener('click', (event) => {
+        event.preventDefault();
+        location.href = 'index.html';
+        fetch('http://localhost:3000/api/products/order', orderPost)
+          .then((response) => response.json())
+          .then((orderingInformation) => {
+            console.log(orderingInformation);
+          });
+      });
+    }
+  }
 }
