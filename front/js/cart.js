@@ -44,63 +44,6 @@ if (localStorageProducts) {
       .insertAdjacentHTML('beforeend', productCart);
   }
 
-  //--------------------------------------------------------------------------------------//
-  // declaration of the variable to be able to put the prices present in the localStorage //
-  // fetch the prices in the localStorage                                                 //
-  // put the localStorage prices in the variable                                          //
-  // add up the prices in the variable                                                    //
-  // display the total amount in the DOM                                                  //
-  //--------------------------------------------------------------------------------------//
-
-  const priceCalculation = [];
-  for (index = 0; index < localStorageProducts.length; index++) {
-    const cartAmout =
-      localStorageProducts[index].price * localStorageProducts[index].quantity;
-    priceCalculation.push(cartAmout);
-    const reduce = (accumulator, currentValue) => accumulator + currentValue;
-    total = priceCalculation.reduce(reduce);
-    console.log(total);
-  }
-  const totalPrice = document.getElementById('totalPrice');
-  totalPrice.textContent = `${total} `;
-
-  //--------------------------------------------------------------------------------------------------//
-  // declaration of the variable to be able to put the number of articles present in the localStorage //
-  // fetch the prices in the localStorage                                                             //
-  // put the localStorage prices in the variable                                                      //
-  // add up the prices in the variable                                                                //
-  // display the total amount in the DOM                                                              //
-  //--------------------------------------------------------------------------------------------------//
-
-  const articleCalculation = [];
-  for (index = 0; index < localStorageProducts.length; index++) {
-    const numberOfArticles = localStorageProducts[index].quantity;
-    articleCalculation.push(numberOfArticles);
-    const reduce = (accumulator, currentValue) => accumulator + currentValue;
-    total = articleCalculation.reduce(reduce);
-    console.log(total);
-  }
-  const totalArticles = document.getElementById('totalQuantity');
-  totalArticles.textContent = `${total} `;
-
-  //---------------------------------------------------------------//
-  // removal of products from the cart                             //
-  // add an event to the click on the element                      //
-  // clears the contents of localStorage                           //
-  // alert that indicates that the requested action has been taken //
-  // clicking on OK returns to the home page                       //
-  //---------------------------------------------------------------//
-
-  const deleteAll = document.getElementById('cart__delete');
-  deleteAll.addEventListener('click', (event) => {
-    event.preventDefault();
-    localStorage.clear();
-    alert(`
-        Le panier a bien été supprimé,
-        retour à la page d'accueil !`);
-    location.href = 'index.html';
-  });
-
   //---------------------------------------------------//
   // creation of a function for the change of quantity //
   // recovery of ID, quantity and color data           //
@@ -125,8 +68,102 @@ if (localStorageProducts) {
           document.getElementsByClassName('itemQuantity').value;
         parseInt(articleQuantity) + parseInt(findArticle.quantity);
         findArticle.quantity = newQuantity;
-        // finish the codebase of the function here
+        // remains to make the modification in the localStorage
       }
     });
   }
+
+  // code for deleting an item from the cart to do here
+
+  //--------------------------------------------------------------------------------------//
+  // declaration of the variable to be able to put the prices present in the localStorage //
+  // fetch the prices in the localStorage                                                 //
+  // put the localStorage prices in the variable                                          //
+  // add up the prices in the variable                                                    //
+  // display the total amount in the DOM                                                  //
+  //--------------------------------------------------------------------------------------//
+
+  const priceCalculation = [];
+  for (index = 0; index < localStorageProducts.length; index++) {
+    const cartAmout =
+      localStorageProducts[index].price * localStorageProducts[index].quantity;
+    priceCalculation.push(cartAmout);
+    const reduce = (previousValue, currentValue) =>
+      previousValue + currentValue;
+    total = priceCalculation.reduce(reduce);
+  }
+  const totalPrice = document.getElementById('totalPrice');
+  totalPrice.textContent = `${total} `;
+
+  //--------------------------------------------------------------------------------------------------//
+  // declaration of the variable to be able to put the number of articles present in the localStorage //
+  // fetch the prices in the localStorage                                                             //
+  // put the localStorage prices in the variable                                                      //
+  // add up the prices in the variable                                                                //
+  // display the total amount in the DOM                                                              //
+  //--------------------------------------------------------------------------------------------------//
+
+  const articleCalculation = [];
+  for (index = 0; index < localStorageProducts.length; index++) {
+    const numberOfArticles = localStorageProducts[index].quantity;
+    articleCalculation.push(numberOfArticles);
+    const reduce = (previousValue, currentValue) =>
+      previousValue + currentValue;
+    total = articleCalculation.reduce(reduce);
+    console.log(total);
+  }
+  const totalArticles = document.getElementById('totalQuantity');
+  totalArticles.textContent = `${total} `; // bad result, the code must be reviewed
+
+  //---------------------------------------------------------------//
+  // removal of products from the cart                             //
+  // add an event to the click on the element                      //
+  // clears the contents of localStorage                           //
+  // alert that indicates that the requested action has been taken //
+  // clicking on OK returns to the home page                       //
+  //---------------------------------------------------------------//
+
+  const deleteAll = document.getElementById('cart__delete');
+  deleteAll.addEventListener('click', (event) => {
+    event.preventDefault();
+    localStorage.clear();
+    alert(`
+        Le panier a bien été supprimé,
+        retour à la page d'accueil !`);
+    location.href = 'index.html';
+  });
+
+  //-------------------------------------------------------------------//
+  // get the inputs from the DOM                                       //
+  // array containing the data of the localStorage to send to the back //
+  // array containing the data of the order form to send to the back   //
+  //-------------------------------------------------------------------//
+
+  const firstName = document.getElementById('firstName');
+  const lastName = document.getElementById('lastName');
+  const address = document.getElementById('address');
+  const city = document.getElementById('city');
+  const email = document.getElementById('email');
+
+  const orderArray = [];
+  for (let index = 0; index < localStorageProducts.length; index++) {
+    orderArray.push(localStorageProducts[index].id);
+    orderArray.push(localStorageProducts[index].name);
+    orderArray.push(localStorageProducts[index].color);
+    orderArray.push(localStorageProducts[index].quantity);
+    orderArray.push(localStorageProducts[index].price);
+  }
+  console.log(orderArray);
+
+  const formArray = {
+    contact: {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      address: address.value,
+      city: city.value,
+      email: email.value,
+    },
+    order: [orderArray],
+  };
+  console.log(formArray);
 }

@@ -51,7 +51,6 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
       event.preventDefault();
       const dataQuantity = document.getElementById('quantity');
       const dataColor = document.getElementById('colors');
-
       const dataArray = {
         id: dataID,
         name: data.name,
@@ -61,7 +60,6 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
         image: data.imageUrl,
         alt: data.altTxt,
       };
-
       if (
         localStorage.getItem('localStorageProducts') &&
         localStorage.getItem('localStorageProducts').length > 0
