@@ -21,6 +21,7 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
     const image = document.querySelector(
       'body > main > div > section > article > div.item__img'
     );
+    console.table(data);
     const description = document.getElementById('description');
     const price = document.getElementById('price');
     const name = document.getElementById('title');
@@ -29,7 +30,7 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
     name.innerHTML = `<h1>${data.name}</h1>`;
     price.innerText = `${data.price}`;
     description.innerText = `${data.description}`;
-    for (index in data.colors) {
+    for (let index in data.colors) {
       colors.options[colors.options.length] = new Option(
         data.colors[index],
         data.colors[index]
@@ -51,7 +52,7 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
       event.preventDefault();
       const dataQuantity = document.getElementById('quantity');
       const dataColor = document.getElementById('colors');
-      const dataArray = {
+      const StorageArray = {
         id: dataID,
         name: data.name,
         price: data.price,
@@ -68,32 +69,36 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
           localStorage.getItem('localStorageProducts')
         );
         const data = localStorageProducts.findIndex(
-          (data) => data.id === dataArray.id && data.color === dataArray.color
+          (data) =>
+            data.id === StorageArray.id && data.color === StorageArray.color
         );
         if (data === -1) {
-          localStorageProducts.push(dataArray);
+          localStorageProducts.push(StorageArray);
           localStorage.setItem(
             'localStorageProducts',
             JSON.stringify(localStorageProducts)
           );
+          console.log(localStorageProducts);
           alert(`Votre article a bien été ajouté au panier.`);
         } else {
           localStorageProducts[data].quantity =
             parseInt(localStorageProducts[data].quantity) +
-            parseInt(dataArray.quantity);
+            parseInt(StorageArray.quantity);
           localStorage.setItem(
             'localStorageProducts',
             JSON.stringify(localStorageProducts)
           );
+          console.log(localStorageProducts);
           alert(`Votre article a bien été ajouté au panier.`);
         }
       } else {
         localStorageProducts = [];
-        localStorageProducts.push(dataArray);
+        localStorageProducts.push(StorageArray);
         localStorage.setItem(
           'localStorageProducts',
           JSON.stringify(localStorageProducts)
         );
+        console.log(localStorageProducts);
         alert(`Votre article a bien été ajouté au panier.`);
       }
     });

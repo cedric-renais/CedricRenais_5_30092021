@@ -3,10 +3,12 @@
 // transform data into json format                                 //
 // if the API does not respond, then an error message is displayed //
 //-----------------------------------------------------------------//
+
 fetch('http://localhost:3000/api/products')
   .then((response) => response.json())
   .then((data) => {
     addProducts(data);
+    console.table(data);
   })
   .catch((error) => {
     alert('Notre serveur de répond pas, veuillez revenir ultérieurement.');
@@ -18,6 +20,7 @@ fetch('http://localhost:3000/api/products')
 // parses the specified text as HTML and inserts the resulting nodes into the DOM tree at a specified position //
 // avoids the extra step of serialization, making it much faster than direct innerHTML manipulation            //
 //-------------------------------------------------------------------------------------------------------------//
+
 function addProducts(data) {
   for (product of data) {
     const thumbnails = `
@@ -32,6 +35,5 @@ function addProducts(data) {
     document
       .getElementById('items')
       .insertAdjacentHTML('beforeend', thumbnails);
-    console.log(product);
   }
 }
