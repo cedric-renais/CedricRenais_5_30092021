@@ -44,15 +44,16 @@ if (localStorageProducts) {
       .insertAdjacentHTML('beforeend', productCart);
   }
 
-  //---------------------------------------------------//
-  // declaration a function for the change of quantity //
-  // get the itemQuantity class in the DOM             //
-  // add an eventListener (change)                     //
-  // get the new quantity                              //
-  // create a new storageArray with the new quantity   //
-  // delete localStorageProducts                       //
-  // and store newLocalStorageProducts                 //
-  //---------------------------------------------------//
+  //--------------------------------------------------------//
+  // declaration a function for the change of quantity      //
+  // get the itemQuantity class in the DOM                  //
+  // add an eventListener (change)                          //
+  // get the new quantity                                   //
+  // create a new storageArray with the new quantity        //
+  // delete localStorageProducts                            //
+  // and store newLocalStorageProducts                      //
+  // reload the cart.html page to update quantity and price //
+  //--------------------------------------------------------//
 
   function changeQuantity() {
     const itemQuantity = document.querySelectorAll('.itemQuantity');
@@ -74,9 +75,10 @@ if (localStorageProducts) {
         console.table(newLocalStorageProducts);
         localStorage.clear();
         localStorage.setItem(
-          'newLocalStorageProducts',
+          'localStorageProducts',
           JSON.stringify(newLocalStorageProducts)
         );
+        location.reload();
       });
     }
   }
