@@ -84,25 +84,27 @@ if (localStorageProducts) {
   }
   changeQuantity();
 
-  //----------------------------------------------//
-  // declaration a function for delete an article //
-  // get the deleteItem class in the DOM          //
-  // add an eventListener (click)                 //
-  // get the id and color                         //
-  // continuation of the function here...         //
-  //----------------------------------------------//
-
-  // in progess...
+  //--------------------------------------------------------//
+  // declaration a function for delete an article           //
+  // get the deleteItem class in the DOM                    //
+  // add an eventListener (click)                           //
+  // get the object of the array and delete it              //
+  // store newLocalStorageProducts in localStorage          //
+  // reload the cart.html page to update quantity and price //
+  //--------------------------------------------------------//
 
   function deleteArticle() {
     const deleteItem = document.querySelectorAll('.deleteItem');
     for (let index = 0; index < deleteItem.length; index++) {
       deleteItem[index].addEventListener('click', (event) => {
         event.preventDefault();
-        const articleClosest = deleteItem[index].closest('article');
-        const articleID = articleClosest.dataset.id;
-        const articleColor = articleClosest.dataset.color;
-        console.log(articleID, articleColor);
+        const newLocalStorageProducts = localStorageProducts;
+        newLocalStorageProducts.splice(index, 1);
+        localStorage.setItem(
+          'localStorageProducts',
+          JSON.stringify(newLocalStorageProducts)
+        );
+        location.reload();
       });
     }
   }

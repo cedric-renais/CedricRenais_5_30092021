@@ -78,7 +78,7 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
             'localStorageProducts',
             JSON.stringify(localStorageProducts)
           );
-          console.log(localStorageProducts);
+          console.table(localStorageProducts);
           alert(`Votre article a bien été ajouté au panier.`);
         } else {
           localStorageProducts[data].quantity =
@@ -88,7 +88,7 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
             'localStorageProducts',
             JSON.stringify(localStorageProducts)
           );
-          console.log(localStorageProducts);
+          console.table(localStorageProducts);
           alert(`Votre article a bien été ajouté au panier.`);
         }
       } else {
@@ -98,7 +98,7 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
           'localStorageProducts',
           JSON.stringify(localStorageProducts)
         );
-        console.log(localStorageProducts);
+        console.table(localStorageProducts);
         alert(`Votre article a bien été ajouté au panier.`);
       }
     });
