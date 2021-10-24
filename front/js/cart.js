@@ -5,7 +5,7 @@
 const localStorageProducts = JSON.parse(
   localStorage.getItem('localStorageProducts')
 );
-console.table(localStorageProducts);
+console.log('Content of localStorage', localStorageProducts);
 
 //-------------------------------------------------------------------------------------------------------------//
 // if there is data in the localStorage                                                                        //
@@ -174,8 +174,6 @@ if (localStorageProducts) {
   // Create an array containing the two previous arrays                    //
   //-----------------------------------------------------------------------//
 
-  // In progress
-
   function orderArray() {
     const order = document.getElementById('order');
     order.addEventListener('click', (event) => {
@@ -185,6 +183,7 @@ if (localStorageProducts) {
       const address = document.getElementById('address');
       const city = document.getElementById('city');
       const email = document.getElementById('email');
+
       const productArray = [];
       for (let index = 0; index < localStorageProducts.length; index++) {
         productArray.push(
@@ -203,7 +202,7 @@ if (localStorageProducts) {
         },
       };
       const formProductArray = [formArray, productArray];
-      console.log(formProductArray);
+      console.log('Data to be sent to the back', formProductArray);
     });
   }
   orderArray();

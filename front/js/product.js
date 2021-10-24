@@ -21,7 +21,7 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
     const image = document.querySelector(
       'body > main > div > section > article > div.item__img'
     );
-    console.table(data);
+    console.log('ID data sent by the API', data);
     const description = document.getElementById('description');
     const price = document.getElementById('price');
     const name = document.getElementById('title');

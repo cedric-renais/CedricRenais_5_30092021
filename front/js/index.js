@@ -8,7 +8,7 @@ fetch('http://localhost:3000/api/products')
   .then((response) => response.json())
   .then((data) => {
     addProducts(data);
-    console.table(data);
+    console.log('Data sent by the API', data);
   })
   .catch((error) => {
     alert('Notre serveur de répond pas, veuillez revenir ultérieurement.');
