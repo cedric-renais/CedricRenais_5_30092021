@@ -150,7 +150,7 @@ if (localStorageProducts) {
   totalQuantity.textContent = totalArticles();
 
   //---------------------------------------------------------------//
-  // removal of products from the cart                             //
+  // get the id in the DOM                                         //
   // add an event to the click on the element                      //
   // clears the contents of localStorage                           //
   // alert that indicates that the requested action has been taken //
@@ -167,9 +167,44 @@ if (localStorageProducts) {
     location.href = 'index.html';
   });
 
-  //---------------------------//
-  // code for order validation //
-  //---------------------------//
+  //-----------------------------------------------------------------------//
+  // get the inputs id in the DOM                                          //
+  // Create an array containing the id of the articles in the localStorage //
+  // Create an array containing the values ​​entered in the form             //
+  // Create an array containing the two previous arrays                    //
+  //-----------------------------------------------------------------------//
 
-  // code to put here...
+  // In progress
+
+  function orderArray() {
+    const order = document.getElementById('order');
+    order.addEventListener('click', (event) => {
+      event.preventDefault();
+      const firstName = document.getElementById('firstName');
+      const lastName = document.getElementById('lastName');
+      const address = document.getElementById('address');
+      const city = document.getElementById('city');
+      const email = document.getElementById('email');
+      const productArray = [];
+      for (let index = 0; index < localStorageProducts.length; index++) {
+        productArray.push(
+          localStorageProducts[index].id +
+            localStorageProducts[index].color +
+            localStorageProducts[index].quantity
+        );
+      }
+      const formArray = {
+        contact: {
+          firstName: firstName.value,
+          lastName: lastName.value,
+          address: address.value,
+          city: city.value,
+          email: email.value,
+        },
+      };
+      const formProductArray = [formArray, productArray];
+      console.log(formProductArray);
+    });
+  }
+  orderArray();
 }

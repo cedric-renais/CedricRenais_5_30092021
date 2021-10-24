@@ -1,12 +1,12 @@
 //-------------------------------------//
-// retrieves the product ID to display //
+// retrieves the product id to display //
 //-------------------------------------//
 
 const newID = new URLSearchParams(location.search);
 const dataID = newID.get('_id');
 
 //-------------------------------------------------------------------------------//
-// call the product ID in the API                                                //
+// call the product id in the API                                                //
 // transform data into json format                                               //
 // declaration of variables to retrieve locations to display elements in the DOM //
 // display elements in the DOM                                                   //
@@ -38,7 +38,8 @@ fetch(`http://localhost:3000/api/products/${dataID}`)
     }
 
     //-------------------------------------------------------------------------------------//
-    // add an event when clicking on the addToCart ID                                      //
+    // get the id in the DOM                                                               //
+    // add an event when clicking on the addToCart id                                      //
     // create an array containing the data of the product                                  //
     // if the localStorage is not empty                                                    //
     // look for the product in the array                                                   //
