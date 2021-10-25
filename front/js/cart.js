@@ -12,6 +12,7 @@ console.log('Content of localStorage', localStorageProducts);
 // then display the data for each registered products                                                          //
 // parses the specified text as HTML and inserts the resulting nodes into the DOM tree at a specified position //
 // avoids the extra step of serialization, making it much faster than direct innerHTML manipulation            //
+// else display alert message and clicking on OK returns to the home page
 //-------------------------------------------------------------------------------------------------------------//
 
 if (localStorageProducts) {
@@ -184,15 +185,11 @@ if (localStorageProducts) {
       const city = document.getElementById('city');
       const email = document.getElementById('email');
 
-      const productArray = [];
+      const products = [];
       for (let index = 0; index < localStorageProducts.length; index++) {
-        productArray.push(
-          localStorageProducts[index].id +
-            localStorageProducts[index].color +
-            localStorageProducts[index].quantity
-        );
+        products.push(localStorageProducts[index].id);
       }
-      const formArray = {
+      const contactProductsArray = {
         contact: {
           firstName: firstName.value,
           lastName: lastName.value,
@@ -200,10 +197,35 @@ if (localStorageProducts) {
           city: city.value,
           email: email.value,
         },
+        products,
       };
-      const formProductArray = [formArray, productArray];
-      console.log('Data to be sent to the back', formProductArray);
+      console.log('Data to be sent to the back', contactProductsArray);
+      fetch('http://localhost:3000/api/products/order', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactProductsArray),
+      })
+        .then((response) => response.json())
+        .then((value) => {
+          localStorage.clear();
+          document.location.href = `confirmation.html?id=${value.orderId}`;
+        })
+        .catch((error) => {
+          console.log('Error: ' + error);
+        });
     });
   }
   orderArray();
+
+  //-----------------------------------------------------------------------------------------//
+  //-----------------------------------------------------------------------------------------//
+  //-----------------------------------------------------------------------------------------//
+} else {
+  alert(`
+  Le panier est vide,
+  retour à la page d'accueil !`);
+  location.href = 'index.html';
 }
