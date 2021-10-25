@@ -12,7 +12,6 @@ console.log('Content of localStorage', localStorageProducts);
 // then display the data for each registered products                                                          //
 // parses the specified text as HTML and inserts the resulting nodes into the DOM tree at a specified position //
 // avoids the extra step of serialization, making it much faster than direct innerHTML manipulation            //
-// else display alert message and clicking on OK returns to the home page
 //-------------------------------------------------------------------------------------------------------------//
 
 if (localStorageProducts) {
@@ -168,62 +167,206 @@ if (localStorageProducts) {
     location.href = 'index.html';
   });
 
+  //------------------------------------------------------------//
+  // creates an array from the constructor containing form data //
+  //------------------------------------------------------------//
+
+  class Form {
+    constructor() {
+      this.firstName = document.getElementById('firstName').value;
+      this.lastName = document.getElementById('lastName').value;
+      this.address = document.getElementById('address').value;
+      this.city = document.getElementById('city').value;
+      this.email = document.getElementById('email').value;
+    }
+  }
+
+  //--------------------------------------------------------//
+  // declare a function to check the validation of the form //
+  // retrieve the array created by the constructor          //
+  // test the validity of the first name                    //
+  // test the validity of the last name                     //
+  // test the validity of the address                       //
+  // test the validity of the city                          //
+  // test the validity of the email                         //
+  // if all the tests are true the form is validated        //
+  //--------------------------------------------------------//
+
+  function validation() {
+    const contact = new Form();
+
+    //------------------------------------------------//
+    // retrieve the first name from the contact array //
+    // test the validity of the first name            //
+    // if the first name is valid, returns true       //
+    // else display an error message in red           //
+    //------------------------------------------------//
+
+    function firstNameIsValid() {
+      const firstNameRegex = contact.firstName;
+      const firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
+      if (/^[-'a-zA-ZÀ-ÖØ-öø-ÿ\s]{3,}$/.test(firstNameRegex)) {
+        firstNameErrorMsg.innerText = '';
+        return true;
+      } else {
+        firstNameErrorMsg.innerText =
+          'Ne peut contenir que des lettres et 3 caractères minimum';
+        firstNameErrorMsg.style.color = 'red';
+      }
+    }
+
+    //------------------------------------------------//
+    // retrieve the last name from the contact array  //
+    // test the validity of the last name             //
+    // if the last name is valid, returns true        //
+    // else display an error message in red           //
+    //------------------------------------------------//
+
+    function lastNameIsValid() {
+      const lastNameRegex = contact.lastName;
+      const lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
+      if (/^[-'a-zA-ZÀ-ÖØ-öø-ÿ\s]{3,}$/.test(lastNameRegex)) {
+        lastNameErrorMsg.innerText = '';
+        return true;
+      } else {
+        lastNameErrorMsg.innerText =
+          'Ne peut contenir que des lettres et 3 caractères minimum';
+        lastNameErrorMsg.style.color = 'red';
+      }
+    }
+
+    //------------------------------------------------//
+    // retrieve the address from the contact array    //
+    // test the validity of the address               //
+    // if the address is valid, returns true          //
+    // else display an error message in red           //
+    //------------------------------------------------//
+
+    function addressIsValid() {
+      const addressRegex = contact.address;
+      const addressErrorMsg = document.getElementById('addressErrorMsg');
+      if (/^[-'a-zA-Z0-9À-ÖØ-öø-ÿ\s]{3,}$/.test(addressRegex)) {
+        addressErrorMsg.innerText = '';
+        return true;
+      } else {
+        addressErrorMsg.innerText = 'Contient des caractères non valide';
+        addressErrorMsg.style.color = 'red';
+      }
+    }
+
+    //------------------------------------------------//
+    // retrieve the city from the contact array       //
+    // test the validity of the city                  //
+    // if the city is valid, returns true             //
+    // else display an error message in red           //
+    //------------------------------------------------//
+
+    function cityIsValid() {
+      const cityRegex = contact.city;
+      const cityErrorMsg = document.getElementById('cityErrorMsg');
+      if (/^[-'a-zA-ZÀ-ÖØ-öø-ÿ\s]{3,}$/.test(cityRegex)) {
+        cityErrorMsg.innerText = '';
+        return true;
+      } else {
+        cityErrorMsg.innerText =
+          'Ne peut contenir que des lettres et 3 caractères minimum';
+        cityErrorMsg.style.color = 'red';
+      }
+    }
+
+    //------------------------------------------------//
+    // retrieve the email from the contact array      //
+    // test the validity of the email                 //
+    // if the email is valid, returns true            //
+    // else display an error message in red           //
+    //------------------------------------------------//
+
+    function emailIsValid() {
+      const emailRegex = contact.email;
+      const emailErrorMsg = document.getElementById('emailErrorMsg');
+      if (/^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/.test(emailRegex)) {
+        emailErrorMsg.innerText = '';
+        return true;
+      } else {
+        emailErrorMsg.innerText = 'Email non valide. (exemple: text@text.com)';
+        emailErrorMsg.style.color = 'red';
+      }
+    }
+    if (
+      firstNameIsValid() &&
+      lastNameIsValid() &&
+      addressIsValid() &&
+      cityIsValid() &&
+      emailIsValid()
+    ) {
+      return true;
+    } else {
+      alert('Le formulaire contient des erreurs.');
+      return false;
+    }
+  }
+
   //-----------------------------------------------------------------------//
-  // get the inputs id in the DOM                                          //
-  // Create an array containing the id of the articles in the localStorage //
-  // Create an array containing the values ​​entered in the form             //
-  // Create an array containing the two previous arrays                    //
+  // declare a function to send the form data and the order to the backend //
+  // add an eventListener('click') on order id in the DOM                  //
+  // if the validation function is true                                    //
+  // create an array containing the id of the articles in the localStorage //
+  // create an array containing the values ​​entered in the form             //
+  // and the array containing the id of the articles in the localStorage   //
+  // send the data to the backend with the POST request                    //
+  // transforms javascript array to JSON and retrieve the order id         //
+  // clear the localStorage and go to confirmation.html page               //
+  // if the API does not respond, then display an alert message            //
   //-----------------------------------------------------------------------//
 
-  function orderArray() {
+  function sendOrder() {
     const order = document.getElementById('order');
     order.addEventListener('click', (event) => {
       event.preventDefault();
-      const firstName = document.getElementById('firstName');
-      const lastName = document.getElementById('lastName');
-      const address = document.getElementById('address');
-      const city = document.getElementById('city');
-      const email = document.getElementById('email');
-
-      const products = [];
-      for (let index = 0; index < localStorageProducts.length; index++) {
-        products.push(localStorageProducts[index].id);
-      }
-      const contactProductsArray = {
-        contact: {
-          firstName: firstName.value,
-          lastName: lastName.value,
-          address: address.value,
-          city: city.value,
-          email: email.value,
-        },
-        products,
-      };
-      console.log('Data to be sent to the back', contactProductsArray);
-      fetch('http://localhost:3000/api/products/order', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(contactProductsArray),
-      })
-        .then((response) => response.json())
-        .then((value) => {
-          localStorage.clear();
-          document.location.href = `confirmation.html?id=${value.orderId}`;
+      if (validation()) {
+        const products = [];
+        for (let index = 0; index < localStorageProducts.length; index++) {
+          products.push(localStorageProducts[index].id);
+        }
+        const contactProductsArray = {
+          contact: {
+            firstName: firstName.value,
+            lastName: lastName.value,
+            address: address.value,
+            city: city.value,
+            email: email.value,
+          },
+          products,
+        };
+        fetch('http://localhost:3000/api/products/order', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(contactProductsArray),
         })
-        .catch((error) => {
-          console.log('Error: ' + error);
-        });
+          .then((response) => response.json())
+          .then((id) => {
+            localStorage.clear();
+            document.location.href = `confirmation.html?id=${id.orderId}`;
+          })
+          .catch((error) => {
+            alert(
+              'Notre serveur de répond pas, veuillez revenir ultérieurement.'
+            );
+            console.log(error);
+          });
+      }
     });
   }
-  orderArray();
-
-  //-----------------------------------------------------------------------------------------//
-  //-----------------------------------------------------------------------------------------//
-  //-----------------------------------------------------------------------------------------//
-} else {
+  sendOrder();
+}
+//-------------------------------------------------------------------//
+// if localStorage is empty display alert message                    //
+// clicking on OK returns to the home page                           //
+//-------------------------------------------------------------------//
+else {
   alert(`
   Le panier est vide,
   retour à la page d'accueil !`);
