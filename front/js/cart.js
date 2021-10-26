@@ -6,7 +6,6 @@ function getLocalStorageProducts() {
     localStorage.getItem('localStorageProducts')
   );
   console.log('Content of localStorage', localStorageProducts);
-
   //-------------------------------------------------------------------------------------------------------------//
   // if there is data in the localStorage                                                                        //
   // then display the data for each registered products                                                          //
@@ -44,9 +43,7 @@ function getLocalStorageProducts() {
           .getElementById('cart__items')
           .insertAdjacentHTML('beforeend', productCart);
       }
-
       //--------------------------------------------------------//
-      // declaration a function for the change of quantity      //
       // get the itemQuantity class in the DOM                  //
       // add an eventListener (change)                          //
       // get the new quantity                                   //
@@ -55,7 +52,6 @@ function getLocalStorageProducts() {
       // and store newLocalStorageProducts                      //
       // reload the cart.html page to update quantity and price //
       //--------------------------------------------------------//
-
       function changeQuantity() {
         const itemQuantity = document.querySelectorAll('.itemQuantity');
         for (let index = 0; index < itemQuantity.length; index++) {
@@ -83,16 +79,13 @@ function getLocalStorageProducts() {
         }
       }
       changeQuantity();
-
       //--------------------------------------------------------//
-      // declaration a function for delete an article           //
       // get the deleteItem class in the DOM                    //
       // add an eventListener (click)                           //
       // get the object of the array and delete it              //
       // store newLocalStorageProducts in localStorage          //
       // reload the cart.html page to update quantity and price //
       //--------------------------------------------------------//
-
       function deleteArticle() {
         const deleteItem = document.querySelectorAll('.deleteItem');
         for (let index = 0; index < deleteItem.length; index++) {
@@ -109,15 +102,12 @@ function getLocalStorageProducts() {
         }
       }
       deleteArticle();
-
-      //--------------------------------------------------------------------------------------//
-      // declaration of the variable to be able to put the prices present in the localStorage //
-      // fetch the prices in the localStorage                                                 //
-      // put the localStorage prices in the variable                                          //
-      // add up the prices in the variable                                                    //
-      // display the total amount in the DOM                                                  //
-      //--------------------------------------------------------------------------------------//
-
+      //----------------------------------------------------//
+      // retrieves the prices in the localStorage           //
+      // Multiply the price by the quantity of each product //
+      // Adds the sum of the results obtained               //
+      // display the total amount in the DOM                //
+      //----------------------------------------------------//
       function priceCalculation() {
         const priceCalculation = [];
         for (let index = 0; index < localStorageProducts.length; index++) {
@@ -133,15 +123,11 @@ function getLocalStorageProducts() {
         totalPrice.textContent = total;
       }
       priceCalculation();
-
-      //--------------------------------------------------------------------------------------------------//
-      // declaration of the variable to be able to put the number of articles present in the localStorage //
-      // fetch the prices in the localStorage                                                             //
-      // put the localStorage prices in the variable                                                      //
-      // add up the prices in the variable                                                                //
-      // display the total amount in the DOM                                                              //
-      //--------------------------------------------------------------------------------------------------//
-
+      //---------------------------------------------------------//
+      // retrieves the articles in the localStorage              //
+      // calculate the total number of items in the localStorage //
+      // displays the total number of items in the DOM           //
+      //---------------------------------------------------------//
       function totalArticles() {
         let total = 0;
         for (let index in localStorageProducts) {
@@ -152,7 +138,6 @@ function getLocalStorageProducts() {
       }
       const totalQuantity = document.getElementById('totalQuantity');
       totalQuantity.textContent = totalArticles();
-
       //---------------------------------------------------------------//
       // get the id in the DOM                                         //
       // add an event to the click on the element                      //
@@ -172,11 +157,9 @@ function getLocalStorageProducts() {
         });
       }
       deleteAll();
-
       //------------------------------------------------------------//
       // creates an array from the constructor containing form data //
       //------------------------------------------------------------//
-
       class Form {
         constructor() {
           this.firstName = document.getElementById('firstName').value;
@@ -186,9 +169,7 @@ function getLocalStorageProducts() {
           this.email = document.getElementById('email').value;
         }
       }
-
       //--------------------------------------------------------//
-      // declare a function to check the validation of the form //
       // retrieve the array created by the constructor          //
       // test the validity of the first name                    //
       // test the validity of the last name                     //
@@ -197,17 +178,14 @@ function getLocalStorageProducts() {
       // test the validity of the email                         //
       // if all the tests are true the form is validated        //
       //--------------------------------------------------------//
-
       function validation() {
         const contact = new Form();
-
         //------------------------------------------------//
         // retrieve the first name from the contact array //
         // test the validity of the first name            //
         // if the first name is valid, returns true       //
         // else display an error message in red           //
         //------------------------------------------------//
-
         function firstNameIsValid() {
           const firstNameRegex = contact.firstName;
           const firstNameErrorMsg =
@@ -221,14 +199,12 @@ function getLocalStorageProducts() {
             firstNameErrorMsg.style.color = 'red';
           }
         }
-
         //------------------------------------------------//
         // retrieve the last name from the contact array  //
         // test the validity of the last name             //
         // if the last name is valid, returns true        //
         // else display an error message in red           //
         //------------------------------------------------//
-
         function lastNameIsValid() {
           const lastNameRegex = contact.lastName;
           const lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
@@ -241,14 +217,12 @@ function getLocalStorageProducts() {
             lastNameErrorMsg.style.color = 'red';
           }
         }
-
         //------------------------------------------------//
         // retrieve the address from the contact array    //
         // test the validity of the address               //
         // if the address is valid, returns true          //
         // else display an error message in red           //
         //------------------------------------------------//
-
         function addressIsValid() {
           const addressRegex = contact.address;
           const addressErrorMsg = document.getElementById('addressErrorMsg');
@@ -260,14 +234,12 @@ function getLocalStorageProducts() {
             addressErrorMsg.style.color = 'red';
           }
         }
-
         //------------------------------------------------//
         // retrieve the city from the contact array       //
         // test the validity of the city                  //
         // if the city is valid, returns true             //
         // else display an error message in red           //
         //------------------------------------------------//
-
         function cityIsValid() {
           const cityRegex = contact.city;
           const cityErrorMsg = document.getElementById('cityErrorMsg');
@@ -280,14 +252,12 @@ function getLocalStorageProducts() {
             cityErrorMsg.style.color = 'red';
           }
         }
-
         //------------------------------------------------//
         // retrieve the email from the contact array      //
         // test the validity of the email                 //
         // if the email is valid, returns true            //
         // else display an error message in red           //
         //------------------------------------------------//
-
         function emailIsValid() {
           const emailRegex = contact.email;
           const emailErrorMsg = document.getElementById('emailErrorMsg');
@@ -313,9 +283,7 @@ function getLocalStorageProducts() {
           return false;
         }
       }
-
       //-----------------------------------------------------------------------//
-      // declare a function to send the form data and the order to the backend //
       // add an eventListener('click') on order id in the DOM                  //
       // if the validation function is true                                    //
       // create an array containing the id of the articles in the localStorage //
@@ -326,7 +294,6 @@ function getLocalStorageProducts() {
       // clear the localStorage and go to confirmation.html page               //
       // if the API does not respond, then display an alert message            //
       //-----------------------------------------------------------------------//
-
       function sendOrder() {
         const order = document.getElementById('order');
         order.addEventListener('click', (event) => {

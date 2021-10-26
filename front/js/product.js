@@ -1,15 +1,12 @@
 //-------------------------------------//
 // retrieves the product id to display //
 //-------------------------------------//
-
 const newID = new URLSearchParams(location.search);
 const dataID = newID.get('_id');
-
-//--------------------------------------------------//
-// if localStorage is empty display null            //
-// if localStorage is not empty display the content //
-//--------------------------------------------------//
-
+//--------------------------------------------------------------//
+// if localStorage is empty display null                        //
+// if localStorage is not empty display the content             //
+//--------------------------------------------------------------//
 function localStorageProductsCheck() {
   let localStorageProducts = JSON.parse(
     localStorage.getItem('localStorageProducts')
@@ -17,7 +14,6 @@ function localStorageProductsCheck() {
   console.log('Content of localStorage', localStorageProducts);
 }
 localStorageProductsCheck();
-
 //-------------------------------------------------------------------------------//
 // call the product id in the API                                                //
 // transform data into json format                                               //
@@ -25,7 +21,6 @@ localStorageProductsCheck();
 // display elements in the DOM                                                   //
 // for loop of which look in the array for the color options then display it     //
 //-------------------------------------------------------------------------------//
-
 function apiCallById() {
   fetch(`http://localhost:3000/api/products/${dataID}`)
     .then((response) => {
@@ -36,7 +31,10 @@ function apiCallById() {
         'body > main > div > section > article > div.item__img'
       );
       console.log('ID data sent by the API', data);
-      // comm a mettre à ici
+      //------------------------------------------------//
+      // retrieves the ids in the DOM                   //
+      // inject the html code                           //
+      //------------------------------------------------//
       function addToDOM() {
         const description = document.getElementById('description');
         const price = document.getElementById('price');
@@ -46,6 +44,9 @@ function apiCallById() {
         name.innerHTML = `<h1>${data.name}</h1>`;
         price.innerText = `${data.price}`;
         description.innerText = `${data.description}`;
+        //----------------------------------------//
+        // get each color options to display them //
+        //----------------------------------------//
         function colorsOptions() {
           for (let index in data.colors) {
             colors.options[colors.options.length] = new Option(
@@ -57,7 +58,6 @@ function apiCallById() {
         colorsOptions();
       }
       addToDOM();
-
       //-------------------------------------------------------------------------------------//
       // get the id in the DOM                                                               //
       // add an event when clicking on the addToCart id                                      //
@@ -68,7 +68,6 @@ function apiCallById() {
       // if the product is in the array then add 1 to the quantity                           //
       // if localStorage is empty then create an array                                       //
       //-------------------------------------------------------------------------------------//
-
       function addToCart() {
         const addToCart = document.getElementById('addToCart');
         0;
@@ -103,7 +102,7 @@ function apiCallById() {
                 JSON.stringify(localStorageProducts)
               );
               console.log('localStorage update', localStorageProducts);
-              alert(`Votre article a bien été ajouté au panier.`);
+              alert('Votre article a bien été ajouté au panier.');
             } else {
               localStorageProducts[data].quantity =
                 parseInt(localStorageProducts[data].quantity) +
@@ -113,7 +112,7 @@ function apiCallById() {
                 JSON.stringify(localStorageProducts)
               );
               console.log('localStorage update', localStorageProducts);
-              alert(`Votre article a bien été ajouté au panier.`);
+              alert('Votre article a bien été ajouté au panier.');
             }
           } else {
             localStorageProducts = [];
@@ -123,17 +122,15 @@ function apiCallById() {
               JSON.stringify(localStorageProducts)
             );
             console.log('localStorage update', localStorageProducts);
-            alert(`Votre article a bien été ajouté au panier.`);
+            alert('Votre article a bien été ajouté au panier.');
           }
         });
       }
       addToCart();
     })
-
     //-----------------------------------------------------------------//
     // if the API does not respond, then an error message is displayed //
     //-----------------------------------------------------------------//
-
     .catch((error) => {
       alert('Notre serveur de répond pas, veuillez revenir ultérieurement.');
     });

@@ -1,12 +1,10 @@
 //-----------------------------------------------------------//
-// declare a function to get the order number                //
 // if searchParams has an id, retrieve it                    //
 // else display alert message                                //
 // add a eventListener('load')                               //
 // get the id in the DOM                                     //
 // display the order number                                  //
 //-----------------------------------------------------------//
-
 function getOrderId() {
   const url = new URL(window.location.href);
   const searchParams = new URLSearchParams(url.search);
