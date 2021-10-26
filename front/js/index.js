@@ -4,15 +4,18 @@
 // if the API does not respond, then an error message is displayed //
 //-----------------------------------------------------------------//
 
-fetch('http://localhost:3000/api/products')
-  .then((response) => response.json())
-  .then((data) => {
-    addProducts(data);
-    console.log('Data sent by the API', data);
-  })
-  .catch((error) => {
-    alert('Notre serveur de répond pas, veuillez revenir ultérieurement.');
-  });
+function apiCall() {
+  fetch('http://localhost:3000/api/products')
+    .then((response) => response.json())
+    .then((data) => {
+      addProducts(data);
+      console.log('Data sent by the API', data);
+    })
+    .catch((error) => {
+      alert('Notre serveur de répond pas, veuillez revenir ultérieurement.');
+    });
+}
+apiCall();
 
 //-------------------------------------------------------------------------------------------------------------//
 // creation of a function for the display of articles                                                          //
