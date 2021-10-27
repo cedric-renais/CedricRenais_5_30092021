@@ -104,8 +104,8 @@ function getLocalStorageProducts() {
       deleteArticle();
       //----------------------------------------------------//
       // retrieves the prices in the localStorage           //
-      // Multiply the price by the quantity of each product //
-      // Adds the sum of the results obtained               //
+      // multiply the price by the quantity of each product //
+      // adds the sum of the results obtained               //
       // display the total amount in the DOM                //
       //----------------------------------------------------//
       function priceCalculation() {
@@ -139,7 +139,7 @@ function getLocalStorageProducts() {
       const totalQuantity = document.getElementById('totalQuantity');
       totalQuantity.textContent = totalArticles();
       //---------------------------------------------------------------//
-      // get the id in the DOM                                         //
+      // get the element by is id in the DOM                           //
       // add an event to the click on the element                      //
       // clears the contents of localStorage                           //
       // alert that indicates that the requested action has been taken //
@@ -284,7 +284,7 @@ function getLocalStorageProducts() {
         }
       }
       //-----------------------------------------------------------------------//
-      // add an eventListener('click') on order id in the DOM                  //
+      // add an eventListener('click') on order with is id in the DOM          //
       // if the validation function is true                                    //
       // create an array containing the id of the articles in the localStorage //
       // create an array containing the values ​​entered in the form             //

@@ -32,7 +32,7 @@ function apiCallById() {
       );
       console.log('ID data sent by the API', data);
       //------------------------------------------------//
-      // retrieves the ids in the DOM                   //
+      // get the elements by their id in the DOM        //
       // inject the html code                           //
       //------------------------------------------------//
       function addToDOM() {
@@ -59,7 +59,7 @@ function apiCallById() {
       }
       addToDOM();
       //-------------------------------------------------------------------------------------//
-      // get the id in the DOM                                                               //
+      // get the element by his id in the DOM                                                //
       // add an event when clicking on the addToCart id                                      //
       // create an object containing the data of the product                                 //
       // check if localStorageProducts is already in localStorage                            //

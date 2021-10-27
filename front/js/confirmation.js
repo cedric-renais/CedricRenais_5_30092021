@@ -2,7 +2,7 @@
 // if searchParams has an id, retrieve it                    //
 // else display alert message                                //
 // add a eventListener('load')                               //
-// get the id in the DOM                                     //
+// get the element by is id in the DOM                       //
 // display the order number                                  //
 //-----------------------------------------------------------//
 function getOrderId() {
