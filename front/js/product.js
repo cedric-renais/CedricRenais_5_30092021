@@ -61,19 +61,18 @@ function apiCallById() {
       //-------------------------------------------------------------------------------------//
       // get the id in the DOM                                                               //
       // add an event when clicking on the addToCart id                                      //
-      // create an array containing the data of the product                                  //
-      // if the localStorage is not empty                                                    //
-      // look for the product in the array                                                   //
-      // if the product is not in the array then its value is -1                             //
-      // if the product is in the array then add 1 to the quantity                           //
-      // if localStorage is empty then create an array                                       //
+      // create an object containing the data of the product                                 //
+      // check if localStorageProducts is already in localStorage                            //
+      // if localStorageProducts is null create an Array                                     //
+      // check if an identical element exists (id + color)                                   //
+      // if an identical element already exists update the quantity only                     //
+      // otherwise add StorageArray the the localStorage                                     //
       //-------------------------------------------------------------------------------------//
       function addToCart() {
-        const addToCart = document.getElementById('addToCart');
-        0;
-        addToCart.addEventListener('click', (event) => {
+        const addToCartDOM = document.getElementById('addToCart');
+        addToCartDOM.addEventListener('click', (event) => {
           event.preventDefault();
-          const dataQuantity = document.getElementById('quantity');
+          let dataQuantity = document.getElementById('quantity');
           const dataColor = document.getElementById('colors');
           const StorageArray = {
             id: dataID,
@@ -84,46 +83,29 @@ function apiCallById() {
             image: data.imageUrl,
             alt: data.altTxt,
           };
-          if (
-            localStorage.getItem('localStorageProducts') &&
-            localStorage.getItem('localStorageProducts').length > 0
-          ) {
-            const localStorageProducts = JSON.parse(
-              localStorage.getItem('localStorageProducts')
-            );
-            const data = localStorageProducts.findIndex(
-              (data) =>
-                data.id === StorageArray.id && data.color === StorageArray.color
-            );
-            if (data === -1) {
-              localStorageProducts.push(StorageArray);
-              localStorage.setItem(
-                'localStorageProducts',
-                JSON.stringify(localStorageProducts)
-              );
-              console.log('localStorage update', localStorageProducts);
-              alert('Votre article a bien été ajouté au panier.');
-            } else {
-              localStorageProducts[data].quantity =
-                parseInt(localStorageProducts[data].quantity) +
-                parseInt(StorageArray.quantity);
-              localStorage.setItem(
-                'localStorageProducts',
-                JSON.stringify(localStorageProducts)
-              );
-              console.log('localStorage update', localStorageProducts);
-              alert('Votre article a bien été ajouté au panier.');
-            }
-          } else {
+          let localStorageProducts = JSON.parse(
+            localStorage.getItem('localStorageProducts')
+          );
+          if (localStorageProducts === null) {
             localStorageProducts = [];
-            localStorageProducts.push(StorageArray);
-            localStorage.setItem(
-              'localStorageProducts',
-              JSON.stringify(localStorageProducts)
-            );
-            console.log('localStorage update', localStorageProducts);
-            alert('Votre article a bien été ajouté au panier.');
           }
+          let isHere = false;
+          localStorageProducts.forEach((element) => {
+            if (element.id === dataID && element.color === dataColor.value) {
+              element.quantity = quantity.value;
+              isHere = true;
+              alert(`Le nombre de vos articles a été mis à jour !`);
+            }
+          });
+          if (!isHere) {
+            localStorageProducts.push(StorageArray);
+            alert('Votre article a bien été ajouté au panier !');
+          }
+          localStorage.setItem(
+            'localStorageProducts',
+            JSON.stringify(localStorageProducts)
+          );
+          console.log('localStorage update', localStorageProducts);
         });
       }
       addToCart();
