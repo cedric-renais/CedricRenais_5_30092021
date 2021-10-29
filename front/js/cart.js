@@ -354,12 +354,6 @@ function getLocalStorageProducts() {
     // if localStorage is empty display alert message                    //
     // clicking on OK returns to the home page                           //
     //-------------------------------------------------------------------//
-    else {
-      alert(`
-      Le panier est vide,
-      retour à la page d'accueil !`);
-      location.href = 'index.html';
-    }
   }
   localStorageProductsDOM();
 }
