@@ -6,6 +6,20 @@ function getLocalStorageProducts() {
     localStorage.getItem('localStorageProducts')
   );
   console.log('Content of localStorage', localStorageProducts);
+  //-------------------------------------//
+  // if localStorageProducts is empty    //
+  // display alert message               //
+  // clicking on OK return to index.html //
+  //-------------------------------------//
+  function goToIndex() {
+    if (localStorageProducts.length == 0) {
+      alert(`
+             Votre panier est vide,
+             retour à la page d'accueil !`);
+      location.href = 'index.html';
+    }
+  }
+  goToIndex();
   //-------------------------------------------------------------------------------------------------------------//
   // if there is data in the localStorage                                                                        //
   // then display the data for each registered products                                                          //
