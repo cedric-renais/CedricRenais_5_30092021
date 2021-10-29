@@ -49,7 +49,7 @@ function getLocalStorageProducts() {
       // get the new quantity                                   //
       // create a new storageArray with the new quantity        //
       // delete localStorageProducts                            //
-      // and store newLocalStorageProducts                      //
+      // and store localStorageProducts                         //
       // reload the cart.html page to update quantity and price //
       //--------------------------------------------------------//
       function changeQuantity() {
@@ -58,7 +58,6 @@ function getLocalStorageProducts() {
           itemQuantity[index].addEventListener('change', (event) => {
             event.preventDefault();
             const itemNewQuantity = event.target.value;
-            const newLocalStorageProducts = localStorageProducts;
             const newStorageArray = {
               id: localStorageProducts[index].id,
               name: localStorageProducts[index].name,
@@ -68,35 +67,35 @@ function getLocalStorageProducts() {
               image: localStorageProducts[index].image,
               alt: localStorageProducts[index].alt,
             };
-            newLocalStorageProducts[index] = newStorageArray;
+            localStorageProducts[index] = newStorageArray;
             localStorage.clear();
             localStorage.setItem(
               'localStorageProducts',
-              JSON.stringify(newLocalStorageProducts)
+              JSON.stringify(localStorageProducts)
             );
             location.reload();
           });
         }
       }
       changeQuantity();
-      //--------------------------------------------------------//
-      // get the deleteItem class in the DOM                    //
-      // add an eventListener (click)                           //
-      // get the object of the array and delete it              //
-      // store newLocalStorageProducts in localStorage          //
-      // reload the cart.html page to update quantity and price //
-      //--------------------------------------------------------//
+      //---------------------------------------------------------------//
+      // get the deleteItem class in the DOM                           //
+      // add an eventListener (click)                                  //
+      // get the object of the array and delete it                     //
+      // alert that indicates that the requested action has been taken //
+      // reload the cart.html page to update quantity and price        //
+      //---------------------------------------------------------------//
       function deleteArticle() {
         const deleteItem = document.querySelectorAll('.deleteItem');
         for (let index = 0; index < deleteItem.length; index++) {
           deleteItem[index].addEventListener('click', (event) => {
             event.preventDefault();
-            const newLocalStorageProducts = localStorageProducts;
-            newLocalStorageProducts.splice(index, 1);
+            localStorageProducts.splice(index, 1);
             localStorage.setItem(
               'localStorageProducts',
-              JSON.stringify(newLocalStorageProducts)
+              JSON.stringify(localStorageProducts)
             );
+            alert('Votre article a bien été supprimé.');
             location.reload();
           });
         }
@@ -230,7 +229,7 @@ function getLocalStorageProducts() {
             addressErrorMsg.innerText = '';
             return true;
           } else {
-            addressErrorMsg.innerText = 'Contient des caractères non valide';
+            addressErrorMsg.innerText = `Contient des caractères non valide ou format d'adresse trop court`;
             addressErrorMsg.style.color = 'red';
           }
         }

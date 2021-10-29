@@ -15,11 +15,8 @@ function localStorageProductsCheck() {
 }
 localStorageProductsCheck();
 //-------------------------------------------------------------------------------//
-// call the product id in the API                                                //
-// transform data into json format                                               //
-// declaration of variables to retrieve locations to display elements in the DOM //
-// display elements in the DOM                                                   //
-// for loop of which look in the array for the color options then display it     //
+// call the product by is id in the API                                          //
+// receives in response the product data in json format                          //
 //-------------------------------------------------------------------------------//
 function apiCallById() {
   fetch(`http://localhost:3000/api/products/${dataID}`)
@@ -27,15 +24,16 @@ function apiCallById() {
       return response.json();
     })
     .then((data) => {
-      const image = document.querySelector(
-        'body > main > div > section > article > div.item__img'
-      );
       console.log('ID data sent by the API', data);
-      //------------------------------------------------//
-      // get the elements by their id in the DOM        //
-      // inject the html code                           //
-      //------------------------------------------------//
+      //-------------------------------------------------------------------------------//
+      // declaration of variables to retrieve locations to display elements in the DOM //
+      // get the elements by their id in the DOM                                       //
+      // inject the html code                                                          //
+      //-------------------------------------------------------------------------------//
       function addToDOM() {
+        const image = document.querySelector(
+          'body > main > div > section > article > div.item__img'
+        );
         const description = document.getElementById('description');
         const price = document.getElementById('price');
         const name = document.getElementById('title');

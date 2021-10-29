@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------//
 // API call                                                        //
-// transform data into json format                                 //
+// receives in response the product data in json format            //
 // if the API does not respond, then an error message is displayed //
 //-----------------------------------------------------------------//
 function apiCall() {
